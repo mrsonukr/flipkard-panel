@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Save, AlertCircle, X } from 'lucide-react';
+import { Save, AlertCircle, X, Link, Loader2 } from 'lucide-react';
 import { ImageInputs } from './ImageInputs';
+import { scrapeProductData } from '../utils/productScraper';
 
 interface Product {
   id: string;
@@ -62,6 +63,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     storageVariant: editingProduct?.variants?.find(v => v.type === 'storage')?.name || ''
   });
 
+  const [productUrl, setProductUrl] = useState('');
+  const [isScrapingLoading, setIsScrapingLoading] = useState(false);
+  const [scrapingError, setScrapingError] = useState('');
   const [duplicateError, setDuplicateError] = useState('');
 
   const stockStatusOptions = {
@@ -76,6 +80,39 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       ...prev,
       [field]: value
     }));
+  };
+
+  const handleAutoFill = async () => {
+    if (!productUrl.trim()) {
+      setScrapingError('Please enter a product URL');
+      return;
+    }
+
+    setIsScrapingLoading(true);
+    setScrapingError('');
+
+    try {
+      const scrapedData = await scrapeProductData(productUrl);
+      
+      if (scrapedData) {
+        // Auto-fill the form with scraped data
+        setFormData(prev => ({
+          ...prev,
+          name: scrapedData.name,
+          brand: scrapedData.brand,
+          mrp: scrapedData.mrp.toString(),
+          salePrice: scrapedData.salePrice.toString(),
+          images: scrapedData.images.length > 0 ? scrapedData.images : ['']
+        }));
+        
+        setScrapingError('');
+        alert(`Product data filled successfully! Found ${scrapedData.images.length} images.`);
+      }
+    } catch (error) {
+      setScrapingError(error instanceof Error ? error.message : 'Failed to scrape product data');
+    } finally {
+      setIsScrapingLoading(false);
+    }
   };
 
   const checkDuplicates = () => {
@@ -206,6 +243,53 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           <span className="text-red-600">{duplicateError}</span>
         </div>
       )}
+
+      {/* Auto-fill from URL Section */}
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <div className="flex items-center gap-2 mb-3">
+          <Link className="w-5 h-5 text-blue-600" />
+          <h3 className="text-sm font-medium text-blue-800">Auto-fill from Product URL</h3>
+        </div>
+        
+        {scrapingError && (
+          <div className="mb-3 text-red-600 text-sm bg-red-50 p-2 rounded-md">
+            {scrapingError}
+          </div>
+        )}
+        
+        <div className="flex gap-2">
+          <input
+            type="url"
+            value={productUrl}
+            onChange={(e) => setProductUrl(e.target.value)}
+            placeholder="Paste Flipkart product URL here..."
+            className="flex-1 px-3 py-2 border border-blue-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            disabled={isScrapingLoading}
+          />
+          <button
+            type="button"
+            onClick={handleAutoFill}
+            disabled={isScrapingLoading || !productUrl.trim()}
+            className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isScrapingLoading ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                Scraping...
+              </>
+            ) : (
+              <>
+                <Link className="w-4 h-4" />
+                Auto-fill
+              </>
+            )}
+          </button>
+        </div>
+        
+        <p className="text-xs text-blue-600 mt-2">
+          Currently supports Flipkart product URLs. The form will be automatically filled with scraped data.
+        </p>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
