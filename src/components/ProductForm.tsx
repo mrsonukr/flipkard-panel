@@ -15,6 +15,7 @@ interface Product {
   stockStatus: string;
   variants: Array<{ type: string; name: string }> | null;
   delivery: number;
+  originalMrp?: number;
 }
 
 interface ProductFormProps {
@@ -32,18 +33,33 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   editingProduct,
   onCancelEdit
 }) => {
+  // Generate random values
+  const generateRandomValues = () => {
+    const ratings = [4, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 5];
+    const deliveryDays = [2, 3, 4, 5];
+    const discounts = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80];
+    
+    return {
+      rating: ratings[Math.floor(Math.random() * ratings.length)],
+      delivery: deliveryDays[Math.floor(Math.random() * deliveryDays.length)],
+      discount: discounts[Math.floor(Math.random() * discounts.length)],
+      reviews: Math.floor(Math.random() * 50000) + 1000 // 1000 to 51000 reviews
+    };
+  };
+
+  const getRandomStockStatus = (category: string) => {
+    const options = stockStatusOptions[category as keyof typeof stockStatusOptions] || stockStatusOptions.others;
+    return options[Math.floor(Math.random() * options.length)];
+  };
+
   const [formData, setFormData] = useState({
     name: editingProduct?.name || '',
     brand: editingProduct?.brand || '',
-    basePrice: editingProduct?.basePrice?.toString() || '',
-    discountPercentage: editingProduct?.discountPercentage?.toString() || '',
+    mrp: editingProduct ? (editingProduct.basePrice * (100 + editingProduct.discountPercentage) / 100).toString() : '24900',
+    salePrice: editingProduct?.basePrice?.toString() || '498',
     images: editingProduct?.images || [''],
-    averageRating: editingProduct?.averageRating?.toString() || '4',
-    totalReviews: editingProduct?.totalReviews?.toString() || '',
-    stockStatus: editingProduct?.stockStatus || '',
     colorVariant: editingProduct?.variants?.find(v => v.type === 'color')?.name || '',
-    storageVariant: editingProduct?.variants?.find(v => v.type === 'storage')?.name || '',
-    delivery: editingProduct?.delivery?.toString() || '2'
+    storageVariant: editingProduct?.variants?.find(v => v.type === 'storage')?.name || ''
   });
 
   const [duplicateError, setDuplicateError] = useState('');
@@ -100,6 +116,20 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     // Remove duplicate images
     const cleanImages = removeDuplicateImages(formData.images);
 
+    // Generate random values for new products, keep existing for edits
+    const randomValues = editingProduct ? {
+      rating: editingProduct.averageRating,
+      delivery: editingProduct.delivery,
+      reviews: editingProduct.totalReviews
+    } : generateRandomValues();
+
+    // Calculate discount percentage from MRP and sale price
+    const mrpValue = parseInt(formData.mrp);
+    const salePriceValue = parseInt(formData.salePrice);
+    const calculatedDiscount = Math.round(((mrpValue - salePriceValue) / mrpValue) * 100);
+
+    const stockStatus = editingProduct ? editingProduct.stockStatus : getRandomStockStatus(category);
+
     // Build variants array only for mobile category
     let variants = null;
     if (category === 'mobile') {
@@ -118,14 +148,15 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       name: formData.name,
       brand: formData.brand,
       category,
-      basePrice: parseInt(formData.basePrice),
-      discountPercentage: parseInt(formData.discountPercentage),
+      basePrice: salePriceValue,
+      discountPercentage: calculatedDiscount,
       images: cleanImages,
-      averageRating: parseFloat(formData.averageRating),
-      totalReviews: parseInt(formData.totalReviews),
-      stockStatus: formData.stockStatus,
+      averageRating: randomValues.rating,
+      totalReviews: randomValues.reviews,
+      stockStatus: stockStatus,
       variants: variants,
-      delivery: parseInt(formData.delivery)
+      delivery: randomValues.delivery,
+      originalMrp: mrpValue // Store original MRP
     };
 
     onProductSave(product);
@@ -135,15 +166,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       setFormData({
         name: '',
         brand: '',
-        basePrice: '',
-        discountPercentage: '',
+        mrp: '24900',
+        salePrice: '498',
         images: [''],
-        averageRating: '4',
-        totalReviews: '',
-        stockStatus: '',
         colorVariant: '',
-        storageVariant: '',
-        delivery: '2'
+        storageVariant: ''
       });
     }
   };
@@ -210,96 +237,34 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Base Price *
-          </label>
-          <input
-            type="number"
-            required
-            value={formData.basePrice}
-            onChange={(e) => handleInputChange('basePrice', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="Enter base price"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Discount Percentage *
-          </label>
-          <input
-            type="number"
-            required
-            min="0"
-            max="100"
-            value={formData.discountPercentage}
-            onChange={(e) => handleInputChange('discountPercentage', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="Enter discount percentage"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Average Rating *
-          </label>
-          <select
-            value={formData.averageRating}
-            onChange={(e) => handleInputChange('averageRating', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="1">1 Star</option>
-            <option value="2">2 Stars</option>
-            <option value="3">3 Stars</option>
-            <option value="4">4 Stars</option>
-            <option value="5">5 Stars</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Total Reviews *
-          </label>
-          <input
-            type="number"
-            required
-            value={formData.totalReviews}
-            onChange={(e) => handleInputChange('totalReviews', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="Enter total reviews"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Stock Status *
-          </label>
-          <select
-            required
-            value={formData.stockStatus}
-            onChange={(e) => handleInputChange('stockStatus', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="">Select stock status</option>
-            {stockStatusOptions[category as keyof typeof stockStatusOptions]?.map(status => (
-              <option key={status} value={status}>{status}</option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Delivery Days *
-          </label>
-          <input
-            type="number"
-            required
-            min="1"
-            value={formData.delivery}
-            onChange={(e) => handleInputChange('delivery', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="Enter delivery days"
-          />
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                MRP *
+              </label>
+              <input
+                type="number"
+                required
+                value={formData.mrp}
+                onChange={(e) => handleInputChange('mrp', e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Enter MRP (e.g., 24900)"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Sale Price *
+              </label>
+              <input
+                type="number"
+                required
+                value={formData.salePrice}
+                onChange={(e) => handleInputChange('salePrice', e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Enter sale price (e.g., 498)"
+              />
+            </div>
+          </div>
         </div>
       </div>
 

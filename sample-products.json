@@ -1,0 +1,530 @@
+{
+  "products": [
+    {
+      "id": "iphone-16-pro-max",
+      "name": "iPhone 16 Pro Max (Natural Titanium, 256 GB)",
+      "brand": "Apple",
+      "category": "mobile",
+      "mrp": 144900,
+      "salePrice": 499,
+      "images": [
+        "/assets/images/product/iphone-16-pro-max_0.jpg",
+        "/assets/images/product/iphone-16-pro-max_1.jpg",
+        "/assets/images/product/iphone-16-pro-max_2.jpg",
+        "/assets/images/product/iphone-16-pro-max_3.jpg",
+        "/assets/images/product/iphone-16-pro-max_4.jpg",
+        "/assets/images/product/iphone-16-pro-max_5.jpg",
+        "/assets/images/product/iphone-16-pro-max_6.jpg",
+        "/assets/images/product/iphone-16-pro-max_7.jpg",
+        "/assets/images/product/iphone-16-pro-max_8.jpg"
+      ],
+      "averageRating": 5,
+      "totalReviews": 71204,
+      "stockStatus": "Top Discount",
+      "variants": [
+        {
+          "type": "color",
+          "name": "Natural Titanium"
+        },
+        {
+          "type": "storage",
+          "name": "256 GB"
+        }
+      ],
+      "delivery": 2
+    },
+    {
+      "id": "mobile-1752395992111",
+      "name": "iPhone 15 Pro",
+      "brand": "Apple",
+      "category": "mobile",
+      "mrp": 164900,
+      "salePrice": 459,
+      "images": [
+        "/assets/images/product/mobile-1752395992111_0.jpg",
+        "/assets/images/product/mobile-1752395992111_1.jpg",
+        "/assets/images/product/mobile-1752395992111_2.jpg",
+        "/assets/images/product/mobile-1752395992111_3.jpg",
+        "/assets/images/product/mobile-1752395992111_4.jpg",
+        "/assets/images/product/mobile-1752395992111_5.jpg",
+        "/assets/images/product/mobile-1752395992111_6.jpg",
+        "/assets/images/product/mobile-1752395992111_7.jpg",
+        "/assets/images/product/mobile-1752395992111_8.jpg"
+      ],
+      "averageRating": 4,
+      "totalReviews": 45421,
+      "stockStatus": "Hot Deal",
+      "variants": [
+        {
+          "type": "color",
+          "name": "Natural Titanium"
+        },
+        {
+          "type": "storage",
+          "name": "256"
+        }
+      ],
+      "delivery": 2
+    },
+    {
+      "id": "prod_014",
+      "name": "Apple iPhone 14 (Starlight, 128 GB)",
+      "brand": "Apple",
+      "category": "mobile",
+      "mrp": 59900,
+      "salePrice": 289,
+      "images": [
+        "/assets/images/product/prod_014_0.jpg",
+        "/assets/images/product/prod_014_1.jpg",
+        "/assets/images/product/prod_014_2.jpg",
+        "/assets/images/product/prod_014_3.jpg",
+        "/assets/images/product/prod_014_4.jpg",
+        "/assets/images/product/prod_014_5.jpg",
+        "/assets/images/product/prod_014_6.jpg"
+      ],
+      "averageRating": 4.7,
+      "totalReviews": 25613,
+      "stockStatus": "In Stock",
+      "variants": [
+        {
+          "type": "color",
+          "name": "Starlight"
+        },
+        {
+          "type": "storage",
+          "name": "128 GB"
+        }
+      ],
+      "delivery": 2
+    },
+    {
+      "id": "mobile-1751732479103",
+      "name": "Galaxy S25 Ultra 5G Smartphone with Galaxy AI (Titanium Whitesilver, 12GB RAM, 256GB Storage), Titanium Frame, Snapdragon 8 Elite, 200 MP Camera with ProVisual Engine and 5000mAh Battery",
+      "brand": "Samsung",
+      "category": "mobile",
+      "mrp": 129999,
+      "salePrice": 399,
+      "images": [
+        "/assets/images/product/mobile-1751732479103_0.jpg",
+        "/assets/images/product/mobile-1751732479103_1.jpg",
+        "/assets/images/product/mobile-1751732479103_2.jpg",
+        "/assets/images/product/mobile-1751732479103_3.jpg",
+        "/assets/images/product/mobile-1751732479103_4.jpg",
+        "/assets/images/product/mobile-1751732479103_5.jpg",
+        "/assets/images/product/mobile-1751732479103_6.jpg",
+        "/assets/images/product/mobile-1751732479103_7.jpg"
+      ],
+      "averageRating": 4,
+      "totalReviews": 45178,
+      "stockStatus": "Hot Deal",
+      "variants": [
+        {
+          "type": "color",
+          "name": "Titanium Whitesilver"
+        },
+        {
+          "type": "storage",
+          "name": "12GB + 256GB"
+        }
+      ],
+      "delivery": 2
+    },
+    {
+      "id": "prod_013",
+      "name": "POCO M6 Plus 5G (Misty Lavender, 128 GB)  (8 GB RAM)",
+      "brand": "POCO",
+      "category": "mobile",
+      "mrp": 17999,
+      "salePrice": 299,
+      "images": [
+        "/assets/images/product/prod_013_0.jpg",
+        "/assets/images/product/prod_013_1.jpg",
+        "/assets/images/product/prod_013_2.jpg",
+        "/assets/images/product/prod_013_3.jpg",
+        "/assets/images/product/prod_013_4.jpg",
+        "/assets/images/product/prod_013_5.jpg",
+        "/assets/images/product/prod_013_6.jpg",
+        "/assets/images/product/prod_013_7.jpg",
+        "/assets/images/product/prod_013_8.jpg"
+      ],
+      "averageRating": 4,
+      "totalReviews": 18523,
+      "stockStatus": "Performance Beast",
+      "variants": [
+        {
+          "type": "color",
+          "name": "Misty Lavender"
+        },
+        {
+          "type": "storage",
+          "name": "256 GB"
+        }
+      ],
+      "delivery": 2
+    },
+    {
+      "id": "prod_015",
+      "name": "Apple iPhone 15 (Blue, 128 GB)",
+      "brand": "Apple",
+      "category": "mobile",
+      "mrp": 69900,
+      "salePrice": 349,
+      "images": [
+        "/assets/images/product/prod_015_0.jpg",
+        "/assets/images/product/prod_015_1.jpg",
+        "/assets/images/product/prod_015_2.jpg",
+        "/assets/images/product/prod_015_3.jpg",
+        "/assets/images/product/prod_015_4.jpg",
+        "/assets/images/product/prod_015_5.jpg",
+        "/assets/images/product/prod_015_6.jpg",
+        "/assets/images/product/prod_015_7.jpg"
+      ],
+      "averageRating": 4.8,
+      "totalReviews": 18947,
+      "stockStatus": "In Stock",
+      "variants": [
+        {
+          "type": "color",
+          "name": "White"
+        },
+        {
+          "type": "storage",
+          "name": "128 GB"
+        }
+      ],
+      "delivery": 2
+    },
+    {
+      "id": "others-1752397756173",
+      "name": "Watch Ultra 49mm GPS + Cellular - ECG App, Temp sensor, Fall Detection  (Orange Strap, Medium)",
+      "brand": "Apple",
+      "category": "others",
+      "mrp": 89900,
+      "salePrice": 299,
+      "images": [
+        "/assets/images/product/others-1752397756173_0.jpg",
+        "/assets/images/product/others-1752397756173_1.jpg",
+        "/assets/images/product/others-1752397756173_2.jpg",
+        "/assets/images/product/others-1752397756173_3.jpg",
+        "/assets/images/product/others-1752397756173_4.jpg"
+      ],
+      "averageRating": 4,
+      "totalReviews": 3425,
+      "stockStatus": "Top Discount",
+      "variants": null,
+      "delivery": 2
+    },
+    {
+      "id": "bodyguard-jacket",
+      "name": "Men Solid Leather Jacket",
+      "brand": "BodyGuard",
+      "category": "cloth",
+      "mrp": 6999,
+      "salePrice": 149,
+      "images": [
+        "/assets/images/product/bodyguard-jacket_0.jpg",
+        "/assets/images/product/bodyguard-jacket_1.jpg",
+        "/assets/images/product/bodyguard-jacket_2.jpg"
+      ],
+      "averageRating": 4,
+      "totalReviews": 1923,
+      "stockStatus": "Hot Deal",
+      "variants": null,
+      "delivery": 5
+    },
+    {
+      "id": "others-1752397756174",
+      "name": "boAt Rockerz 450 w/ 40mm Drivers, 15 HRS Playback, Soft Padded Earcups Bluetooth (Hazel Beige, On the Ear)",
+      "brand": "boAt",
+      "category": "others",
+      "mrp": 1999,
+      "salePrice": 199,
+      "images": [
+        "/assets/images/product/others-1752397756174_0.jpg",
+        "/assets/images/product/others-1752397756174_1.jpg",
+        "/assets/images/product/others-1752397756174_2.jpg",
+        "/assets/images/product/others-1752397756174_3.jpg",
+        "/assets/images/product/others-1752397756174_4.jpg",
+        "/assets/images/product/others-1752397756174_5.jpg",
+        "/assets/images/product/others-1752397756174_6.jpg"
+      ],
+      "averageRating": 4.3,
+      "totalReviews": 32147,
+      "stockStatus": "Top Seller",
+      "variants": null,
+      "delivery": 2
+    },
+    {
+      "id": "air-max-impact-4",
+      "name": "Air Max Impact 4 Sneakers For Men (Black)",
+      "brand": "NIKE",
+      "category": "shoes",
+      "mrp": 8495,
+      "salePrice": 199,
+      "images": [
+        "/assets/images/product/air-max-impact-4_0.jpg",
+        "/assets/images/product/air-max-impact-4_1.jpg",
+        "/assets/images/product/air-max-impact-4_2.jpg",
+        "/assets/images/product/air-max-impact-4_3.jpg",
+        "/assets/images/product/air-max-impact-4_4.jpg",
+        "/assets/images/product/air-max-impact-4_5.jpg"
+      ],
+      "averageRating": 4.2,
+      "totalReviews": 4567,
+      "stockStatus": "Top Discount",
+      "variants": null,
+      "delivery": 2
+    },
+    {
+      "id": "mobile-1752396482183",
+      "name": "11R 5G (Sonic Black, 8GB RAM, 128GB Storage)",
+      "brand": "OnePlus ",
+      "category": "mobile",
+      "mrp": 39999,
+      "salePrice": 299,
+      "images": [
+        "/assets/images/product/mobile-1752396482183_0.jpg",
+        "/assets/images/product/mobile-1752396482183_1.jpg",
+        "/assets/images/product/mobile-1752396482183_2.jpg",
+        "/assets/images/product/mobile-1752396482183_3.jpg",
+        "/assets/images/product/mobile-1752396482183_4.jpg"
+      ],
+      "averageRating": 4,
+      "totalReviews": 4565,
+      "stockStatus": "Top Discount",
+      "variants": [
+        {
+          "type": "color",
+          "name": "Sonic Black"
+        },
+        {
+          "type": "storage",
+          "name": "128 GB"
+        }
+      ],
+      "delivery": 2
+    },
+    {
+      "id": "mobile-1752396751136",
+      "name": "Pixel 7 Pro (Obsidian, 128 GB)  (12 GB RAM)",
+      "brand": "Google ",
+      "category": "mobile",
+      "mrp": 84999,
+      "salePrice": 349,
+      "images": [
+        "/assets/images/product/mobile-1752396751136_0.jpg",
+        "/assets/images/product/mobile-1752396751136_1.jpg",
+        "/assets/images/product/mobile-1752396751136_2.jpg",
+        "/assets/images/product/mobile-1752396751136_3.jpg",
+        "/assets/images/product/mobile-1752396751136_4.jpg",
+        "/assets/images/product/mobile-1752396751136_5.jpg",
+        "/assets/images/product/mobile-1752396751136_6.jpg",
+        "/assets/images/product/mobile-1752396751136_7.jpg",
+        "/assets/images/product/mobile-1752396751136_8.jpg",
+        "/assets/images/product/mobile-1752396751136_9.jpg"
+      ],
+      "averageRating": 5,
+      "totalReviews": 24323,
+      "stockStatus": "Top Discount",
+      "variants": [
+        {
+          "type": "color",
+          "name": "Obsidian"
+        },
+        {
+          "type": "storage",
+          "name": "128 GB"
+        }
+      ],
+      "delivery": 2
+    },
+    {
+      "id": "mobile-1752397001354",
+      "name": "Edge 40 (Eclipse Black, 256 GB)  (8 GB RAM)",
+      "brand": "Motorola",
+      "category": "mobile",
+      "mrp": 34999,
+      "salePrice": 349,
+      "images": [
+        "/assets/images/product/mobile-1752397001354_0.jpg",
+        "/assets/images/product/mobile-1752397001354_1.jpg",
+        "/assets/images/product/mobile-1752397001354_2.jpg",
+        "/assets/images/product/mobile-1752397001354_3.jpg",
+        "/assets/images/product/mobile-1752397001354_4.jpg",
+        "/assets/images/product/mobile-1752397001354_5.jpg",
+        "/assets/images/product/mobile-1752397001354_6.jpg",
+        "/assets/images/product/mobile-1752397001354_7.jpg"
+      ],
+      "averageRating": 4,
+      "totalReviews": 6545,
+      "stockStatus": "Top Discount",
+      "variants": [
+        {
+          "type": "color",
+          "name": "Eclipse Black"
+        },
+        {
+          "type": "storage",
+          "name": "256 GB"
+        }
+      ],
+      "delivery": 2
+    },
+    {
+      "id": "mobile-1752397318559",
+      "name": "MacBook Pro Apple M3 - (8 GB/1 TB SSD/macOS Sonoma) MTL83HN/A  (14 Inch, Space Grey, 1.55 Kg)",
+      "brand": "Apple",
+      "category": "mobile",
+      "mrp": 169900,
+      "salePrice": 699,
+      "images": [
+        "/assets/images/product/mobile-1752397318559_0.jpg",
+        "/assets/images/product/mobile-1752397318559_1.jpg",
+        "/assets/images/product/mobile-1752397318559_2.jpg",
+        "/assets/images/product/mobile-1752397318559_3.jpg",
+        "/assets/images/product/mobile-1752397318559_4.jpg",
+        "/assets/images/product/mobile-1752397318559_5.jpg",
+        "/assets/images/product/mobile-1752397318559_6.jpg"
+      ],
+      "averageRating": 4,
+      "totalReviews": 5554,
+      "stockStatus": "Top Discount",
+      "variants": [
+        {
+          "type": "color",
+          "name": "Space Grey"
+        },
+        {
+          "type": "storage",
+          "name": "8 GB/1 TB SSD/macOS"
+        }
+      ],
+      "delivery": 2
+    },
+    {
+      "id": "others-1752397455906",
+      "name": "EOS 3000D DSLR Camera 1 Body, 18 - 55 mm Lens  (Black)",
+      "brand": "Canon",
+      "category": "others",
+      "mrp": 35995,
+      "salePrice": 499,
+      "images": [
+        "/assets/images/product/others-1752397455906_0.jpg",
+        "/assets/images/product/others-1752397455906_1.jpg",
+        "/assets/images/product/others-1752397455906_2.jpg",
+        "/assets/images/product/others-1752397455906_3.jpg"
+      ],
+      "averageRating": 4,
+      "totalReviews": 34223,
+      "stockStatus": "Hot Deal",
+      "variants": null,
+      "delivery": 3
+    },
+    {
+      "id": "others-1752397599018",
+      "name": "Watch Series 10 GPS 46mm Silver Aluminium with Denim Sport Band  (Denim Strap, Free Size)",
+      "brand": "Apple",
+      "category": "others",
+      "mrp": 49900,
+      "salePrice": 299,
+      "images": [
+        "/assets/images/product/others-1752397599018_0.jpg",
+        "/assets/images/product/others-1752397599018_1.jpg",
+        "/assets/images/product/others-1752397599018_2.jpg",
+        "/assets/images/product/others-1752397599018_3.jpg",
+        "/assets/images/product/others-1752397599018_4.jpg",
+        "/assets/images/product/others-1752397599018_5.jpg"
+      ],
+      "averageRating": 4,
+      "totalReviews": 32443,
+      "stockStatus": "Top Discount",
+      "variants": null,
+      "delivery": 3
+    },
+    {
+      "id": "others-1752397869708",
+      "name": "190 L Direct Cool Single Door 4 Star Refrigerator with Toughned Glass ShelfLarge Vegetable Box  (DAZZLE STEEL, HED-204DS-P)",
+      "brand": "Haier",
+      "category": "others",
+      "mrp": 20990,
+      "salePrice": 299,
+      "images": [
+        "/assets/images/product/others-1752397869708_0.jpg",
+        "/assets/images/product/others-1752397869708_1.jpg",
+        "/assets/images/product/others-1752397869708_2.jpg",
+        "/assets/images/product/others-1752397869708_3.jpg",
+        "/assets/images/product/others-1752397869708_4.jpg"
+      ],
+      "averageRating": 4,
+      "totalReviews": 43243,
+      "stockStatus": "Top Discount",
+      "variants": null,
+      "delivery": 2
+    },
+    {
+      "id": "others-1752398034379",
+      "name": "9 kg 5 Star, AI Control, AI Ecobubble, Super Speed, Wi-Fi, Hygiene Steam, Digital Inverter Motor Fully Automatic Front Load Washing Machine with In-built Heater Grey  (WW90DG6U24ASTL)",
+      "brand": " Samsung",
+      "category": "others",
+      "mrp": 57990,
+      "salePrice": 249,
+      "images": [
+        "/assets/images/product/others-1752398034379_0.jpg",
+        "/assets/images/product/others-1752398034379_1.jpg",
+        "/assets/images/product/others-1752398034379_2.jpg",
+        "/assets/images/product/others-1752398034379_3.jpg",
+        "/assets/images/product/others-1752398034379_4.jpg",
+        "/assets/images/product/others-1752398034379_5.jpg",
+        "/assets/images/product/others-1752398034379_6.jpg"
+      ],
+      "averageRating": 4,
+      "totalReviews": 6452,
+      "stockStatus": "Hot Deal",
+      "variants": null,
+      "delivery": 2
+    },
+    {
+      "id": "others-1752398190383",
+      "name": "AI TV UR7500 164 cm (65 inch) Ultra HD (4K) LED Smart WebOS TV 2025 Edition with Alpha5 AI Processor 4K Gen6 | 100+ Free LG Channels | 4K Upscaling | AI Brightness Control | AI Sound (Virtual Surround 5.1 Up-mix) | FTA Satellite Port | Magic Remote Compatible | 60Hz Refresh Rate | Alexa Built In | Works with Apple Air Play  (65UR75006LC)",
+      "brand": "LG",
+      "category": "others",
+      "mrp": 114990,
+      "salePrice": 599,
+      "images": [
+        "/assets/images/product/others-1752398190383_0.jpg",
+        "/assets/images/product/others-1752398190383_1.jpg",
+        "/assets/images/product/others-1752398190383_2.jpg",
+        "/assets/images/product/others-1752398190383_3.jpg",
+        "/assets/images/product/others-1752398190383_4.jpg",
+        "/assets/images/product/others-1752398190383_5.jpg",
+        "/assets/images/product/others-1752398190383_6.jpg",
+        "/assets/images/product/others-1752398190383_7.jpg"
+      ],
+      "averageRating": 4,
+      "totalReviews": 1334,
+      "stockStatus": "Top Discount",
+      "variants": null,
+      "delivery": 2
+    },
+    {
+      "id": "others-1752398438137",
+      "name": "AirPods Pro (2nd generation) with MagSafe Case (USB-C) Bluetooth  (White, True Wireless)",
+      "brand": "Apple",
+      "category": "others",
+      "mrp": 24900,
+      "salePrice": 498,
+      "images": [
+        "/assets/images/product/others-1752398438137_0.jpg",
+        "/assets/images/product/others-1752398438137_1.jpg",
+        "/assets/images/product/others-1752398438137_2.jpg",
+        "/assets/images/product/others-1752398438137_3.jpg",
+        "/assets/images/product/others-1752398438137_4.jpg"
+      ],
+      "averageRating": 4,
+      "totalReviews": 43554,
+      "stockStatus": "Hot Deal",
+      "variants": null,
+      "delivery": 2
+    }
+  ]
+}

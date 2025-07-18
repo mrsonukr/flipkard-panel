@@ -3,6 +3,7 @@ import { Download, Package, Plus, Upload, Database } from 'lucide-react';
 import { CategorySelector } from './components/CategorySelector';
 import { ProductForm } from './components/ProductForm';
 import { ProductList } from './components/ProductList';
+import { transformImportedData } from './utils/dataTransformer';
 
 interface Product {
   id: string;
@@ -17,6 +18,7 @@ interface Product {
   stockStatus: string;
   variants: Array<{ type: string; name: string }> | null;
   delivery: number;
+  originalMrp?: number; // Store original MRP for imported products
 }
 
 const STORAGE_KEY = 'product-management-data';
@@ -110,7 +112,22 @@ function App() {
 
   const handleExport = () => {
     const filteredProducts = products.filter(p => p.category === selectedCategory);
-    const data = { products: filteredProducts };
+    // Transform products to export format
+    const exportProducts = filteredProducts.map(product => ({
+      id: product.id,
+      name: product.name,
+      brand: product.brand,
+      category: product.category,
+      mrp: product.originalMrp || Math.round(product.basePrice * (100 + product.discountPercentage) / 100),
+      salePrice: product.basePrice,
+      images: product.images,
+      averageRating: product.averageRating,
+      totalReviews: product.totalReviews,
+      stockStatus: product.stockStatus,
+      variants: product.variants,
+      delivery: product.delivery
+    }));
+    const data = { products: exportProducts };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -123,7 +140,22 @@ function App() {
   };
 
   const handleExportAll = () => {
-    const data = { products };
+    // Transform products to export format
+    const exportProducts = products.map(product => ({
+      id: product.id,
+      name: product.name,
+      brand: product.brand,
+      category: product.category,
+      mrp: product.originalMrp || Math.round(product.basePrice * (100 + product.discountPercentage) / 100),
+      salePrice: product.basePrice,
+      images: product.images,
+      averageRating: product.averageRating,
+      totalReviews: product.totalReviews,
+      stockStatus: product.stockStatus,
+      variants: product.variants,
+      delivery: product.delivery
+    }));
+    const data = { products: exportProducts };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -147,15 +179,18 @@ function App() {
         try {
           const jsonData = JSON.parse(e.target?.result as string);
           if (jsonData.products && Array.isArray(jsonData.products)) {
-            // Merge imported products with existing ones, avoiding duplicates by ID
+            // Transform imported data to match our schema
+            const transformedProducts = transformImportedData(jsonData.products);
+            
+            // Merge transformed products with existing ones, avoiding duplicates by ID
             setProducts(prev => {
               const existingIds = new Set(prev.map(p => p.id));
-              const newProducts = jsonData.products.filter((p: Product) => !existingIds.has(p.id));
+              const newProducts = transformedProducts.filter((p: Product) => !existingIds.has(p.id));
               const merged = [...prev, ...newProducts];
-              console.log('Imported products, total now:', merged.length);
+              console.log('Imported and transformed products, total now:', merged.length);
               return merged;
             });
-            alert(`Successfully imported ${jsonData.products.length} products!`);
+            alert(`Successfully imported and transformed ${jsonData.products.length} products!`);
           } else {
             alert('Invalid JSON format. Please ensure the file contains a "products" array.');
           }

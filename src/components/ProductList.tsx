@@ -14,6 +14,7 @@ interface Product {
   stockStatus: string;
   variants: Array<{ type: string; name: string }> | null;
   delivery: number;
+  originalMrp?: number;
 }
 
 interface ProductListProps {
