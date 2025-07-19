@@ -27,6 +27,115 @@ interface ProductFormProps {
   onCancelEdit?: () => void;
 }
 
+// MRP calculation function based on price slabs
+const getMRP = (price: number): number | null => {
+  const slabs = [
+    [20000, 199],
+    [25000, 249],
+    [30000, 299],
+    [35000, 319],
+    [40000, 339],
+    [45000, 359],
+    [50000, 379],
+    [55000, 399],
+    [60000, 419],
+    [65000, 439],
+    [70000, 459],
+    [75000, 479],
+    [80000, 499],
+    [85000, 519],
+    [90000, 539],
+    [95000, 559],
+    [100000, 579],
+    [105000, 599],
+    [110000, 619],
+    [115000, 639],
+    [120000, 659],
+    [125000, 679],
+    [130000, 699],
+  ];
+
+  for (const [max, mrp] of slabs) {
+    if (price <= max) return mrp;
+  }
+
+  return null; // above 2L not supported
+};
+
+// Extract color and storage variants from product name
+const extractVariants = (productName: string) => {
+  if (!productName) return { color: '', storage: '' };
+
+  // Common color patterns
+  const colorPatterns = [
+    // Basic colors
+    /\b(Black|White|Blue|Red|Green|Yellow|Orange|Purple|Pink|Gray|Grey|Silver|Gold|Rose Gold|Space Gray|Space Grey)\b/i,
+    // Specific color variants
+    /\b(Natural Titanium|White Titanium|Black Titanium|Blue Titanium|Titanium Black|Titanium Gray|Titanium Grey|Titanium White|Titanium Whitesilver)\b/i,
+    /\b(Mecha Orange|Lavender Frost|Pantone Shadow|Porcelain|Obsidian|Hazel Beige|Misty Lavender|Sonic Black|Eclipse Black)\b/i,
+    /\b(Starlight|Midnight|Product Red|Deep Purple|Alpine Green|Sierra Blue|Graphite|Pacific Blue)\b/i,
+    /\b(Dazzle Steel|Cosmic Black|Phantom Black|Phantom Silver|Phantom Violet|Mystic Bronze)\b/i
+  ];
+
+  // Storage patterns - more comprehensive
+  const storagePatterns = [
+    // RAM + Storage combinations
+    /\((\d+)\s*GB\s*RAM,?\s*(\d+)\s*GB\s*Storage?\)/i,
+    /\((\d+)\s*GB\s*\+\s*(\d+)\s*GB\)/i,
+    /(\d+)\s*GB\s*RAM,?\s*(\d+)\s*GB/i,
+    // Just storage
+    /\((\d+)\s*GB\)/i,
+    /(\d+)\s*GB(?!\s*RAM)/i,
+    // TB storage
+    /\((\d+)\s*TB\)/i,
+    /(\d+)\s*TB/i
+  ];
+
+  let color = '';
+  let storage = '';
+
+  // Extract color
+  for (const pattern of colorPatterns) {
+    const match = productName.match(pattern);
+    if (match) {
+      color = match[1] || match[0];
+      break;
+    }
+  }
+
+  // Extract storage with priority for RAM+Storage combinations
+  for (const pattern of storagePatterns) {
+    const match = productName.match(pattern);
+    if (match) {
+      if (match.length >= 3 && match[1] && match[2]) {
+        // RAM + Storage combination
+        const ram = match[1];
+        const storageSize = match[2];
+        storage = `${ram}GB + ${storageSize}GB`;
+        break;
+      } else if (match[1]) {
+        // Just storage
+        const storageSize = match[1];
+        const unit = pattern.toString().includes('TB') ? 'TB' : 'GB';
+        storage = `${storageSize} ${unit}`;
+        break;
+      }
+    }
+  }
+
+  // Special handling for patterns like "(8 GB RAM)" at the end
+  const ramOnlyMatch = productName.match(/\((\d+)\s*GB\s*RAM\)/i);
+  if (ramOnlyMatch && storage && !storage.includes('+')) {
+    const ram = ramOnlyMatch[1];
+    storage = `${ram}GB + ${storage}`;
+  }
+
+  return {
+    color: color.trim(),
+    storage: storage.trim()
+  };
+};
+
 export const ProductForm: React.FC<ProductFormProps> = ({
   category,
   onProductSave,
@@ -39,7 +148,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     const ratings = [4, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 5];
     const deliveryDays = [2, 3, 4, 5];
     const discounts = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80];
-    
+
     return {
       rating: ratings[Math.floor(Math.random() * ratings.length)],
       delivery: deliveryDays[Math.floor(Math.random() * deliveryDays.length)],
@@ -93,20 +202,28 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
     try {
       const scrapedData = await scrapeProductData(productUrl);
-      
+
       if (scrapedData) {
+        // Calculate sale price using MRP function
+        const calculatedSalePrice = getMRP(scrapedData.mrp);
+        const finalSalePrice = calculatedSalePrice || scrapedData.salePrice;
+
+        // Extract variants from product name
+        const variants = extractVariants(scrapedData.name);
+
         // Auto-fill the form with scraped data
         setFormData(prev => ({
           ...prev,
           name: scrapedData.name,
           brand: scrapedData.brand,
-          mrp: scrapedData.mrp.toString(),
-          salePrice: scrapedData.salePrice.toString(),
-          images: scrapedData.images.length > 0 ? scrapedData.images : ['']
+          mrp: scrapedData.mrp > 0 ? scrapedData.mrp.toString() : prev.mrp,
+          salePrice: finalSalePrice.toString(),
+          images: scrapedData.images.length > 0 ? scrapedData.images : [''],
+          colorVariant: variants.color,
+          storageVariant: variants.storage
         }));
-        
+
         setScrapingError('');
-        alert(`Product data filled successfully! Found ${scrapedData.images.length} images.`);
       }
     } catch (error) {
       setScrapingError(error instanceof Error ? error.message : 'Failed to scrape product data');
@@ -118,15 +235,15 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   const checkDuplicates = () => {
     const currentName = formData.name.toLowerCase().trim();
     const duplicate = existingProducts.find(
-      product => product.name.toLowerCase().trim() === currentName && 
-      (!editingProduct || product.id !== editingProduct.id)
+      product => product.name.toLowerCase().trim() === currentName &&
+        (!editingProduct || product.id !== editingProduct.id)
     );
-    
+
     if (duplicate) {
       setDuplicateError('Product with this name already exists!');
       return true;
     }
-    
+
     setDuplicateError('');
     return false;
   };
@@ -147,7 +264,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (checkDuplicates()) return;
 
     // Remove duplicate images
@@ -197,7 +314,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     };
 
     onProductSave(product);
-    
+
     // Reset form if not editing
     if (!editingProduct) {
       setFormData({
@@ -250,13 +367,13 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           <Link className="w-5 h-5 text-blue-600" />
           <h3 className="text-sm font-medium text-blue-800">Auto-fill from Product URL</h3>
         </div>
-        
+
         {scrapingError && (
           <div className="mb-3 text-red-600 text-sm bg-red-50 p-2 rounded-md">
             {scrapingError}
           </div>
         )}
-        
+
         <div className="flex gap-2">
           <input
             type="url"
@@ -285,7 +402,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             )}
           </button>
         </div>
-        
+
         <p className="text-xs text-blue-600 mt-2">
           Currently supports Flipkart product URLs. The form will be automatically filled with scraped data.
         </p>
@@ -361,7 +478,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       {category === 'mobile' && (
         <div className="border-t border-gray-200 pt-6">
           <h3 className="text-lg font-medium text-gray-800 mb-4">Product Variants</h3>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
